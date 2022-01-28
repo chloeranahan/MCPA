@@ -1,0 +1,49 @@
+set(0,'DefaultFigureWindowStyle','docked')
+set(0,'defaultaxesfontsize',20)
+set(0,'defaultaxesfontname','Times New Roman')
+set(0,'DefaultLineLineWidth', 2);
+
+m = 9.1093837015E-31;
+F = 3E-15;
+
+v = [0];
+x = 0;
+t = 0;
+
+a = F/m;
+
+dt = 0.001;
+
+dv = a*dt;
+
+dx = dv*dt;
+
+subplot(2,1,1);
+plot(t,v(1),'mo');
+hold on
+subplot(2,1,2);
+plot(t,x,'bo');
+hold on
+
+tstop = 1000;
+    
+for i = 1:tstop
+    t = t + dt;
+    v(i+1) = v(i) + dv;
+    x = x + dx; %dt*v(i+1)
+    if rand(1,1) < 0.05
+        v(i+1) = 0;
+    end
+    vmean = mean(v);
+
+    subplot(2,1,1);
+    plot(t,v(i+1),'mo');
+    plot(t,vmean,'co')
+    hold on
+    subplot(2,1,2);
+    plot(t,x,'bo');
+    hold on
+    pause (0.001)
+end
+
+hold off
